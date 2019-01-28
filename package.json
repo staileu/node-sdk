@@ -3,7 +3,10 @@
   "version": "0.0.1-beta",
   "description": "The Node.js sdk for STAIL.EU Accounts service",
   "main": "dist/index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "./node_modules/.bin/tsc --watch",
+    "build": "./node_modules/.bin/tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/staileu/node-sdk.git"
@@ -19,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/staileu/node-sdk/issues"
   },
-  "homepage": "https://stail.eu"
+  "homepage": "https://stail.eu",
+  "devDependencies": {
+    "typescript": "^3.2.4"
+  }
 }
