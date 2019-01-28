@@ -1,0 +1,23 @@
+{
+  "name": "staileu-sdk",
+  "version": "0.0.1-beta",
+  "description": "The Node.js sdk for STAIL.EU Accounts service",
+  "main": "dist/index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/staileu/node-sdk.git"
+  },
+  "keywords": [
+    "staileu",
+    "node-sdk",
+    "accounts",
+    "oauth"
+  ],
+  "author": "STAN-TAb Corp. <contact@stantabcorp.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/staileu/node-sdk/issues"
+  },
+  "homepage": "https://stail.eu"
+}
