@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "./node_modules/.bin/tsc --watch",
-    "build": "./node_modules/.bin/tsc"
+    "build": "./node_modules/.bin/tsc",
+    "test": "./node_modules/.bin/jest --verbose --detectOpenHandles",
+    "test-watch": "./node_modules/.bin/jest --verbose --watchAll"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,9 @@
   },
   "homepage": "https://stail.eu",
   "devDependencies": {
-    "typescript": "^3.2.4"
+    "typescript": "^3.2.4",
+    "@types/jest": "^23.3.13",
+    "jest": "^24.0.0",
+    "ts-jest": "^23.10.5"
   }
 }

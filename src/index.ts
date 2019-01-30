@@ -1,1 +1,1 @@
-console.log('compiled with ts!')
+console.log('compiled with ts!');
