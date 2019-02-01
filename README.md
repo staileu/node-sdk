@@ -6,7 +6,7 @@ Use this library to integrate STAIL.EU Accounts in your Node.js back-end applica
 
 ## Installation
 
-`npm install --save staileu`
+`npm install --save staileu-sdk`
 
 ## Usage
 
