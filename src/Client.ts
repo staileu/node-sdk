@@ -1,6 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
+import Axios, {AxiosError, AxiosResponse} from 'axios'
 import UserInterface from './Interfaces/UserInterface'
-import User from './User';
 import Avatar from './Avatar';
 
 export default class Client {
@@ -21,6 +20,16 @@ export default class Client {
 
     private oauthAccessToken = "";
 
+    private oAuthUser: UserInterface = {
+        id: '',
+        username: '',
+        email: null,
+        firstName: null,
+        lastName: null,
+        birthday: null,
+        avatar: null
+    };
+
     public constructor(appId: String, appSecret: String) {
         this.appId = appId;
         this.appSecret = appSecret;
@@ -36,46 +45,60 @@ export default class Client {
 
     /**
      * Get the STAIL.EU authorize url to redirect the user on.
-     *
-     * @param redirectUri
-     * @param scope
      */
     public getAuthorizeUrl(redirectUri: String, scope: String[] = [this.scope.readProfile]): string {
         return this.userEndpoint + '/authorize?client_id=' + this.appId + '&scope=' + scope.join('%20') + '&redirect_uri=' + redirectUri
     }
 
-    public async verify(authCode: String): Promise<boolean>
-    {
+    /**
+     * Verify the OAuth redirection code and get the oauth access token in the same time
+     */
+    public async verify(authCode: String): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            axios.post(this.apiEndpoint + '/oauth/token', {client_secret: this.appSecret, code: authCode}).then((response: AxiosResponse) => {
-                this.oauthAccessToken = response.data.auth.token
+            Axios.post(this.apiEndpoint + '/oauth/token', {
+                client_secret: this.appSecret,
+                code: authCode
+            }).then((response: AxiosResponse) => {
+                this.oauthAccessToken = response.data.data.auth.token;
                 resolve(true)
             }).catch(error => {
+                // if (error.response != undefined) {
+                //     console.log(error.response.status);
+                //     console.log(error.response.data)
+                // }
                 reject(error)
             })
         })
     }
 
-    public async fetchOAuthUser(): Promise<User>
-    {
-        this.oauthAccessToken
-        return new Promise<User>((resolve, reject) => {
-            axios.get(this.apiEndpoint + '/user/self', {
+    public async fetchOAuthUser(): Promise<UserInterface> {
+        return new Promise<UserInterface>((resolve, reject) => {
+            Axios.get(this.apiEndpoint + '/user/self', {
                 headers: {
                     'Authorization': 'Bearer ' + this.oauthAccessToken
                 }
             }).then(response => {
-                let user = new User();
-                user.id = response.data.user.id
-                user.username = response.data.user.username
-                user.email = response.data.user.email
-                user.firstName = response.data.user.firstName
-                user.lastName = response.data.user.lastName
-                user.birthday = response.data.user.birthday
-                user.avatar = new Avatar(user.id)
-                
-                resolve(user)
+                this.oAuthUser = {
+                    id: response.data.data.user.id,
+                    username: response.data.data.user.username,
+                    email: response.data.data.user.email,
+                    firstName: response.data.data.user.first_name,
+                    lastName: response.data.data.user.last_name,
+                    birthday: response.data.data.user.birthday,
+                    avatar: new Avatar(response.data.data.user.id)
+                };
+                resolve(this.oAuthUser)
+            }).catch((error: AxiosError) => {
+                // if (error.response != undefined) {
+                //     console.log(error.response.status);
+                //     console.log(error.response.data)
+                // }
+                reject(error)
             })
         })
+    }
+
+    public getOAuthUser(): UserInterface {
+        return this.oAuthUser
     }
 }

@@ -1,1 +1,3 @@
-console.log('compiled with ts!');
+import Client from "./Client";
+
+export default Client

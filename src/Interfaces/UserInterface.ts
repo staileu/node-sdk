@@ -1,4 +1,11 @@
+import Avatar from "../Avatar";
+
 export default interface UserInterface {
-    id: String,
-    username: String
+    id: string,
+    username: string,
+    email: string|null,
+    avatar: Avatar|null,
+    firstName: string|null,
+    lastName: string|null,
+    birthday: string|null
 }
