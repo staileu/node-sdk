@@ -14,9 +14,9 @@ export default class Client {
         readRealName: 'read-real-name'
     };
 
-    private readonly apiEndpoint = 'https://api-v2.stail.eu';
+    private apiEndpoint = 'https://api-v2.stail.eu';
 
-    private readonly userEndpoint = 'https://user.stail.eu';
+    private userEndpoint = 'https://user.stail.eu';
 
     private oauthAccessToken = "";
 
@@ -41,6 +41,24 @@ export default class Client {
 
     public getAppSecret(): String {
         return this.appSecret
+    }
+
+    public setApiEndpoint(apiEndpoint: string): Client {
+        this.apiEndpoint = apiEndpoint;
+        return this;
+    }
+
+    public setUserEndpoint(userEndpoint: string): Client {
+        this.userEndpoint = userEndpoint
+        return this;
+    }
+
+    public getApiEndpoint(): string {
+        return this.apiEndpoint;
+    }
+
+    public getUserEndpoint(): string {
+        return this.userEndpoint;
     }
 
     /**

@@ -8,6 +8,10 @@ let config = {
     redirectUri: 'https://example.org/authorize'
 };
 
+function getClient() {
+    return new Client(config.id, config.secret);
+}
+
 describe('package', () => {
     it('should return the client', () => {
         expect(Index).toBe(Client)
@@ -15,7 +19,17 @@ describe('package', () => {
 });
 
 describe('client', () => {
-    let client = new Client(config.id, config.secret);
+    let client = getClient()
+    it('should configure user and api endpoint', () => {
+        expect(client.getApiEndpoint()).toBe("https://api-v2.stail.eu")
+        expect(client.getUserEndpoint()).toBe("https://user.stail.eu")
+        expect(client.setApiEndpoint('https://api.example.org')).toBeInstanceOf(Client)
+        expect(client.setUserEndpoint('https://user.example.org')).toBeInstanceOf(Client)
+        expect(client.setApiEndpoint('http://localhost:8000')).toBeInstanceOf(Client)
+        expect(client.setUserEndpoint('http://localhost:8000')).toBeInstanceOf(Client)
+        client.setApiEndpoint('https://api-v2.stail.eu')
+        client.setUserEndpoint('https://user.stail.eu')
+    });
     it('should return app id and app secret', () => {
         expect(client.getAppId()).toBe(config.id);
         expect(client.getAppSecret()).toBe(config.secret)
