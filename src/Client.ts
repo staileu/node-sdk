@@ -1,4 +1,4 @@
-import Axios, {AxiosError, AxiosResponse} from 'axios'
+import Axios, { AxiosError, AxiosResponse } from 'axios'
 import UserInterface from './Interfaces/UserInterface'
 import Avatar from './Avatar';
 
@@ -65,7 +65,12 @@ export default class Client {
      * Get the STAIL.EU authorize url to redirect the user on.
      */
     public getAuthorizeUrl(redirectUri: String, scope: String[] = [this.scope.readProfile]): string {
-        return this.userEndpoint + '/authorize?client_id=' + this.appId + '&scope=' + scope.join('%20') + '&redirect_uri=' + redirectUri
+        return (
+            this.userEndpoint +
+            '/authorize?client_id=' + this.appId +
+            '&scope=' + scope.join('%20') +
+            '&redirect_uri=' + redirectUri
+        )
     }
 
     /**
