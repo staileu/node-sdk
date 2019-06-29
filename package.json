@@ -1,6 +1,6 @@
 {
   "name": "staileu-sdk",
-  "version": "0.0.3-beta",
+  "version": "0.0.4-beta",
   "description": "The Node.js sdk for STAIL.EU Accounts service",
   "main": "dist/index.js",
   "scripts": {
