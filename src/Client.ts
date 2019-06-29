@@ -103,7 +103,7 @@ export default class Client {
                     firstName: response.data.data.user.first_name,
                     lastName: response.data.data.user.last_name,
                     birthday: response.data.data.user.birthday,
-                    avatar: new Avatar(response.data.data.user.id)
+                    avatar: new Avatar(response.data.data.user.id, this.apiEndpoint)
                 };
                 resolve(this.oAuthUser)
             }).catch((error: AxiosError) => {

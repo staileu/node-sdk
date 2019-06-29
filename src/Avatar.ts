@@ -3,9 +3,9 @@ import Axios from "axios";
 export default class Avatar {
     private readonly url: string = "";
 
-    constructor(userId: string)
+    constructor(userId: string, apiEndpoint: string)
     {
-        this.url = "https://api-v2.stail.eu/avatar/" + userId
+        this.url = apiEndpoint + "/avatar/" + userId
     }
 
     public getUrl(size: string|null = null): string
